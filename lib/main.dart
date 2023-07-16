@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
 import 'package:expenses/models/transaction.dart';
@@ -39,7 +40,7 @@ class ExpensesApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -53,31 +54,45 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> transaction = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'Novo tênis da nike',
-    //   value: 110.20,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Novo tênis da nike 2',
-    //   value: 130.20,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't3',
-    //   title: 'Conta de Ceular',
-    //   value: 140.20,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't0',
+      title: 'Novo tênis ',
+      value: 110.20,
+      date: DateTime.now().subtract(const Duration(days: 33)),
+    ),
+    Transaction(
+      id: 't1',
+      title: 'Novo tênis da nike',
+      value: 110.20,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Novo tênis da nike 2',
+      value: 130.20,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't3',
+      title: 'Conta de Ceular',
+      value: 140.20,
+      date: DateTime.now().subtract(const Duration(days: 3)),
+    ),
   ];
+
+  List<Transaction> get transactions {
+    return transaction.where((element) {
+      return element.date
+          .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+    }).toList();
+  }
+
   _addTransaction(String title, double value) {
     final newTransaction = Transaction(
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now(),
+      date: DateTime.now().subtract(const Duration(days: 4)),
     );
     setState(() {
       transaction.add(newTransaction);
@@ -109,9 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          const Card(
-            child: Text('Gráfico'),
-          ),
+          Chart(recentTransaction: transaction),
           TransactinList(transaction: transaction),
         ],
       ),
