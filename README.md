@@ -25,5 +25,8 @@ git: 2.36.1
 ```
 ## Como usar 
 
-![Tela inicial](assets/images/initial_screen.png)![Formulário](assets/images/form.png) 
+![Tela inicial](assets/images/initial.png)
+
+
+![Formulário](assets/images/form.png) 
 
