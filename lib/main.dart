@@ -53,37 +53,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> transaction = [
+  final List<Transaction> _transactions = [
     Transaction(
       id: 't0',
-      title: 'Novo tênis ',
-      value: 110.20,
+      title: 'Conta Antiga',
+      value: 400.00,
       date: DateTime.now().subtract(const Duration(days: 33)),
     ),
     Transaction(
       id: 't1',
-      title: 'Novo tênis da nike',
-      value: 110.20,
+      title: 'Novo Tênis de Corrida',
+      value: 310.76,
       date: DateTime.now().subtract(const Duration(days: 3)),
     ),
     Transaction(
       id: 't2',
-      title: 'Novo tênis da nike 2',
-      value: 130.20,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't3',
-      title: 'Conta de Ceular',
-      value: 140.20,
-      date: DateTime.now().subtract(const Duration(days: 3)),
+      title: 'Conta de Luz',
+      value: 211.30,
+      date: DateTime.now().subtract(const Duration(days: 4)),
     ),
   ];
-
-  List<Transaction> get transactions {
-    return transaction.where((element) {
-      return element.date
-          .isAfter(DateTime.now().subtract(const Duration(days: 7)));
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(
+        const Duration(days: 7),
+      ));
     }).toList();
   }
 
@@ -95,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       date: DateTime.now().subtract(const Duration(days: 4)),
     );
     setState(() {
-      transaction.add(newTransaction);
+      _transactions.add(newTransaction);
     });
     Navigator.of(context).pop();
   }
@@ -124,8 +118,8 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Chart(recentTransaction: transaction),
-          TransactinList(transaction: transaction),
+          Chart(_recentTransactions),
+          TransactinList(transaction: _transactions),
         ],
       ),
       floatingActionButton: FloatingActionButton(
