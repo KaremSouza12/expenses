@@ -1,52 +1,53 @@
-import 'dart:math';
-
-import 'package:expenses/components/chart.dart';
 import 'package:expenses/components/transaction_form.dart';
 import 'package:expenses/components/transaction_list.dart';
-import 'package:expenses/models/transaction.dart';
 import 'package:flutter/material.dart';
+import 'dart:math';
+import 'components/chart.dart';
+import 'models/transaction.dart';
 
-void main() {
-  runApp(
-    ExpensesApp(),
-  );
-}
+main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
-  ExpensesApp({super.key});
+  ExpensesApp({Key? key}) : super(key: key);
   final ThemeData tema = ThemeData();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: tema.copyWith(
-        colorScheme: tema.colorScheme.copyWith(
-          primary: Colors.purple,
-          secondary: Colors.amber,
-        ),
-        textTheme: tema.textTheme.copyWith(
-          titleLarge: const TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+      home: const MyHomePage(),
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        fontFamily: 'QuickSand',
+        colorScheme: ThemeData.light().colorScheme.copyWith(
+              primary: Colors.purple,
+              secondary: Colors.amber,
+            ),
+        textTheme: ThemeData.light().textTheme.copyWith(
+              titleLarge: const TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+              labelLarge: const TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
         appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(
-            fontFamily: 'OpenSans',
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
-          ),
+              fontFamily: 'OpenSans',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.white),
         ),
       ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -72,6 +73,18 @@ class _MyHomePageState extends State<MyHomePage> {
       value: 211.30,
       date: DateTime.now().subtract(const Duration(days: 4)),
     ),
+    Transaction(
+      id: 't3',
+      title: 'Cartão de Crédito',
+      value: 100211.30,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't4',
+      title: 'Lanche',
+      value: 11.30,
+      date: DateTime.now(),
+    ),
   ];
   List<Transaction> get _recentTransactions {
     return _transactions.where((tr) {
@@ -86,11 +99,13 @@ class _MyHomePageState extends State<MyHomePage> {
       id: Random().nextDouble().toString(),
       title: title,
       value: value,
-      date: DateTime.now().subtract(const Duration(days: 4)),
+      date: DateTime.now(),
     );
+
     setState(() {
       _transactions.add(newTransaction);
     });
+
     Navigator.of(context).pop();
   }
 
@@ -98,7 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
       context: context,
       builder: (_) {
-        return TransactionForm(onSubmit: _addTransaction);
+        return TransactionForm(
+          onSubmit: _addTransaction,
+        );
       },
     );
   }
@@ -110,21 +127,23 @@ class _MyHomePageState extends State<MyHomePage> {
         title: const Text('Despesas Pessoais'),
         actions: [
           IconButton(
-            onPressed: () => _openTransactionFormModal(context),
             icon: const Icon(Icons.add),
-          )
+            onPressed: () => _openTransactionFormModal(context),
+          ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Chart(_recentTransactions),
-          TransactinList(transaction: _transactions),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Chart(_recentTransactions),
+            TransactinList(transaction: _transactions)
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => _openTransactionFormModal(context),
         child: const Icon(Icons.add),
+        onPressed: () => _openTransactionFormModal(context),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );

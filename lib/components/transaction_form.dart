@@ -46,6 +46,23 @@ class _TransactionFormState extends State<TransactionForm> {
               controller: valueController,
               decoration: const InputDecoration(labelText: 'Valor R\$'),
             ),
+            SizedBox(
+              height: 70,
+              child: Row(
+                children: [
+                  const Text('Nenhuma data Selecionada'),
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text(
+                      'Selecionar Data',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -53,13 +70,13 @@ class _TransactionFormState extends State<TransactionForm> {
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
+                      backgroundColor: Theme.of(context).primaryColor,
                     ),
                     onPressed: onSubmited,
                     child: const Text(
                       'Nova Transação',
                       style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.white,
                       ),
                     ),
                   ),
