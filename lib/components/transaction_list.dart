@@ -6,9 +6,11 @@ class TransactinList extends StatelessWidget {
   const TransactinList({
     super.key,
     required this.transaction,
+    required this.onRemove,
   });
 
   final List<Transaction> transaction;
+  final void Function(String) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,7 @@ class TransactinList extends StatelessWidget {
                         child: FittedBox(
                           child: Text(
                             'R\$${e.value}',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             ),
                           ),
@@ -63,6 +65,13 @@ class TransactinList extends StatelessWidget {
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     subtitle: Text(DateFormat('d MMM y').format(e.date)),
+                    trailing: IconButton(
+                      onPressed: () => onRemove(e.id),
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
                   ),
                 );
               },
