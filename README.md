@@ -1,16 +1,33 @@
-# expenses
+# Despesas pessoais
+Este projeto apresenta uma lista de despesas pessoais onde é possível cadastrar os gastos durante uma semana, desta forma é possivel ter uma ideia do quanto é gasto e em qual dia houve mais gastos.
 
-A new Flutter project.
+## Primeiro passos
+- Baixar a aplicação
 
-## Getting Started
+```
+git clone https://github.com/KaremSouza12/expenses.git
+```
+
+- Para baixar os pacotes instalados utilize o comando a baixo:
+
+```
+flutter pub get
+```
+### O que foi utilizado na implementação
+
+```
+dart: 3.0.0
+Flutter: 3.10.0
+Visual Estudio Code: 1.8.0
+
+Para subir as alterações pro repositório
+git: 2.36.1
+```
+## Como usar 
+
+![Tela inicial](assets/images/initial_screen.png)![Formulário](assets/images/form.png) 
 
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
