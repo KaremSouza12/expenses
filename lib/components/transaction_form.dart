@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class TransactionForm extends StatefulWidget {
-  const TransactionForm({
-    super.key,
-    required this.onSubmit,
-  });
+  const TransactionForm(this.onSubmit, {Key? key}) : super(key: key);
 
   final void Function(String, double, DateTime date) onSubmit;
 
